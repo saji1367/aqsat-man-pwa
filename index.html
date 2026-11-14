@@ -13,8 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f5fb;--card:#fff;--tx:#16213a;--mu:#6b7794;--pri:#5b5bf0;--pri2:#8b5cf6;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;--line:#e3e7f2;--sh:0 10px 30px rgba(40,50,110,.09);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1120;--card:#171d31;--tx:#eef1fb;--mu:#98a3c4;--line:#262e49;--sh:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}}
+:root{--bg:#f7f9ff;--card:#fff;--tx:#26334d;--mu:#7d8aa5;--pri:#7b9cf5;--pri2:#b39cf7;--ok:#67c9a5;--warn:#f2c879;--bad:#e98c9a;--line:#e8edf7;--sh:0 10px 28px rgba(100,125,180,.10);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 :root[data-theme="dark"]{--bg:#0d1120;--card:#171d31;--tx:#eef1fb;--mu:#98a3c4;--line:#262e49;--sh:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
@@ -31,8 +30,8 @@ header h1 .ic{color:var(--pri)}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}}
 .card{background:var(--card);border-radius:24px;padding:18px;box-shadow:var(--sh);margin-bottom:14px;animation:rise .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*80ms)}
 @keyframes rise{from{opacity:0;transform:translateY(18px) scale(.97)}}
-.hero{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;position:relative;overflow:hidden;padding:22px}
-.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:float 7s ease-in-out infinite}
+.hero{background:linear-gradient(135deg,#dce8ff,#eee4ff 58%,#f8e7f0);color:#34415f;position:relative;overflow:hidden;padding:22px;border:1px solid #e5eaff}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.34);animation:float 7s ease-in-out infinite}
 .hero::before{width:180px;height:180px;top:-60px;left:-40px}.hero::after{width:110px;height:110px;bottom:-30px;right:30px;animation-delay:-3s}
 @keyframes float{50%{transform:translate(14px,18px) scale(1.08)}}
 .hero>*{position:relative;z-index:1}
@@ -41,6 +40,15 @@ header h1 .ic{color:var(--pri)}
 .gauge .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-weight:800;font-size:26px;line-height:1.1}
 .gauge .mid small{font-size:11px;font-weight:500;opacity:.85}
 .arc{transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
+.hero .arc{stroke:#829ff0!important}.hero .gauge circle:first-child{stroke:rgba(100,125,180,.18)}
+.due-list{display:grid;gap:10px}.due-item{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#fff,#f8faff);animation:rise .45s both;animation-delay:calc(var(--i,0)*65ms)}.due-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:#edf2ff;color:#7895e9;flex:none}.due-info{min-width:0;flex:1}.due-info b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.due-info small{display:block;color:var(--mu);font-size:11px}.due-pay{width:auto;min-width:86px;padding:8px 11px;border-radius:12px;font-size:12px;background:#e4f6ef;color:#329b78;box-shadow:none}.due-pay:active{background:#c9efdf;transform:scale(.94)}
+.due-line{display:flex;align-items:center;gap:6px;margin:9px 0 12px;padding:8px 10px;border-radius:12px;background:#f0f4ff;color:#617fc9;font-size:12px}.due-line .ic{color:#7c98e6}
+.card{transition:transform .25s,box-shadow .25s}.card:active{transform:scale(.992)}
+.btn,.sm,.iconbtn,.fab,.tabs button,.tb button{transition:transform .2s ease,box-shadow .25s ease,background .25s ease}
+.btn:active,.sm:active,.iconbtn:active,.fab:active{filter:brightness(.97)}
+input,select,textarea{background:#fbfcff;border-color:#e4eaf6}
+input:focus,select:focus,textarea:focus{border-color:#9db4f5;box-shadow:0 0 0 3px rgba(123,156,245,.13)}
+
 .stats{display:grid;gap:8px;flex:1;min-width:0}
 .stat small{display:block;font-size:12px;opacity:.85}.stat b{font-size:17px;font-weight:700}
 .stat b span{font-size:11px;font-weight:400;opacity:.8;margin-inline-start:3px}
@@ -97,10 +105,11 @@ h2 .ic{color:var(--pri)}
 .seg{display:flex;background:var(--bg);border-radius:14px;padding:3px}
 .seg button{padding:6px 12px;border-radius:11px;font-size:13px;color:var(--mu)}
 .seg button.on{background:var(--pri);color:#fff}
-.md{position:fixed;inset:0;background:rgba(10,14,30,.55);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.md{position:fixed;inset:0;background:rgba(46,59,91,.28);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
 .md.on{display:flex;animation:fade2 .25s}
 @keyframes fade2{from{opacity:0}}
-.sheet{background:var(--card);width:100%;max-width:560px;border-radius:28px 28px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto;animation:up .4s cubic-bezier(.2,.8,.2,1)}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:28px 28px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:calc(var(--vvh,100dvh) - var(--kb,0px) - 12px);overflow:auto;overscroll-behavior:contain;scroll-padding-bottom:24px;animation:up .4s cubic-bezier(.2,.8,.2,1)}
+.md.on{bottom:var(--kb,0px)}.sheet input:focus{scroll-margin-bottom:22px}
 @keyframes up{from{transform:translateY(100%)}}
 .sheet h3{margin-bottom:12px}
 label{display:block;font-size:12.5px;color:var(--mu);margin:10px 0 4px}
@@ -152,14 +161,16 @@ function ring(p,sz,sw,tr,st){const r=(sz-sw)/2,c=2*Math.PI*r,h=sz/2;return`<svg 
 function donut(pd,un){const r=62,c=2*Math.PI*r,a=c*pd/((pd+un)||1);return`<svg class="donut" width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="${r}" fill="none" stroke="#f59e0b" stroke-width="22"/><circle cx="75" cy="75" r="${r}" fill="none" stroke="#10b981" stroke-width="22" stroke-dasharray="${a} ${c}" transform="rotate(-90 75 75)"/></svg>`}
 function totals(){let t=0,p=0,n=0,pc=0;S.forEach(a=>{t+=a.amount*a.count;p+=a.amount*a.paid;n+=a.count;pc+=a.paid});return{t,p,u:t-p,pct:t?p/t*100:0}}
 function bars(){const m={},t0=today[0]*12+today[1]-1;S.forEach(a=>{for(let i=a.paid;i<a.count;i++){const d=addM([a.sy,a.sm,a.sd],i),k=Math.max(t0,d[0]*12+d[1]-1);m[k]=(m[k]||0)+a.amount}});const arr=[0,1,2,3,4,5].map(i=>[t0+i,m[t0+i]||0]),mx=Math.max(...arr.map(x=>x[1]),1);return arr.map((x,i)=>`<div class="bar" style="--k:${i}"><span>${x[1]?money(x[1]/1e6)+' م':'—'}</span><i style="height:${Math.max(x[1]/mx*100,4)*.72}%"></i><span>${MN[x[0]%12]}</span></div>`).join('')}
-function home(){const T=totals();let nx=null;S.forEach(a=>{const c=calc(a);if(c.next&&(!nx||key(c.next)<key(nx.d)))nx={a,d:c.next}});
-$('#v-home').innerHTML=`<div class="card hero" style="--i:0"><div class="hrow"><div class="gauge">${ring(T.pct,132,13,'rgba(255,255,255,.25)','#fff')}<div class="mid"><span class="cu" data-n="${T.pct}" data-f="p">۰</span><small>پرداخت‌شده</small></div></div><div class="stats"><div class="stat"><small>جمع کل اقساط</small><b><span class="cu" data-n="${T.t}" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div><div class="stat"><small>پرداخت‌شده</small><b><span class="cu" data-n="${T.p}" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div><div class="stat"><small>پرداخت‌نشده</small><b><span class="cu" data-n="${T.u}" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div></div></div></div>
-${nx?`<div class="card next" style="--i:1"><div class="badge">${ic('cal',24)}</div><div><small>قسط بعدی</small><b>${esc(nx.a.name)}</b><small>${fmt(nx.d)} · ${money(nx.a.amount)} تومان</small></div></div>`:''}
-<div class="card" style="--i:2"><h2>${ic('pie')}سهم پرداخت‌شده و باقی‌مانده</h2><div class="dn">${donut(T.p,T.u)}<div class="leg"><div><i style="background:#10b981"></i>پرداخت‌شده<b>${money(T.p)}</b></div><div><i style="background:#f59e0b"></i>پرداخت‌نشده<b>${money(T.u)}</b></div></div></div></div>
-<div class="card" style="--i:3"><h2>${ic('chart')}سررسیدهای ۶ ماه آینده</h2><div class="bars">${bars()}</div></div>`}
+function currentMonthDue(){return S.map(a=>({a:a,c:calc(a)})).filter(x=>x.c.next&&x.c.next[0]===today[0]&&x.c.next[1]===today[1]).sort((x,y)=>key(x.c.next)-key(y.c.next))}
+function home(){
+ const T=totals(),due=currentMonthDue();
+ const hero='<div class="card hero" style="--i:0"><div class="hrow"><div class="gauge">'+ring(T.pct,132,13,'rgba(100,125,180,.16)','#7898ed')+'<div class="mid"><span class="cu" data-n="'+T.pct+'" data-f="p">۰</span><small>پرداخت‌شده</small></div></div><div class="stats"><div class="stat"><small>جمع کل اقساط</small><b><span class="cu" data-n="'+T.t+'" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div><div class="stat"><small>پرداخت‌شده</small><b><span class="cu" data-n="'+T.p+'" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div><div class="stat"><small>پرداخت‌نشده</small><b><span class="cu" data-n="'+T.u+'" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div></div></div></div>';
+ const dueHtml=due.length?'<div class="due-list">'+due.map((x,i)=>'<div class="due-item" style="--i:'+i+'"><div class="due-icon">'+ic('wallet',21)+'</div><div class="due-info"><b>'+esc(x.a.name)+'</b><small>'+fmt(x.c.next)+' · '+money(x.a.amount)+' تومان</small></div><button class="btn due-pay" data-a="pay" data-id="'+x.a.id+'">'+ic('check',15)+'پرداخت</button></div>').join('')+'</div>':'<div class="empty" style="padding:20px 8px">'+ic('check',30)+'<p style="margin-top:6px">برای این ماه قسط پرداخت‌نشده‌ای باقی نمانده است.</p></div>';
+ $('#v-home').innerHTML=hero+'<div class="card" style="--i:1"><h2>'+ic('cal')+'اقساط پرداخت‌نشده این ماه</h2>'+dueHtml+'</div><div class="card" style="--i:2"><h2>'+ic('pie')+'سهم پرداخت‌شده و باقی‌مانده</h2><div class="dn">'+donut(T.p,T.u)+'<div class="leg"><div><i style="background:#67c9a5"></i>پرداخت‌شده<b>'+money(T.p)+'</b></div><div><i style="background:#f2c879"></i>پرداخت‌نشده<b>'+money(T.u)+'</b></div></div></div></div>';
+}
 function list(){const L=S.filter(a=>F==='all'||(F==='done')===(a.paid>=a.count));
 $('#v-list').innerHTML=`<div class="tabs">${[['all','همه'],['act','در حال پرداخت'],['done','تمام‌شده']].map(x=>`<button data-f="${x[0]}" class="${F===x[0]?'on':''}">${x[1]}</button>`).join('')}</div>`+(L.length?L.map((a,i)=>{const c=calc(a),col=a.paid>=a.count?'#10b981':'url(#gr)';return`<div class="card item" style="--i:${i}"><div class="ih"><div class="mini">${ring(c.pct,58,7,'var(--line)',col)}<span>${fd(Math.round(c.pct))}٪</span></div><div class="t"><b>${esc(a.name)}</b><span class="chip" style="--c:${c.s[1]}">${c.s[0]}</span></div></div>
-<div class="dates"><span>${ic('cal',15)}شروع: ${fmt([a.sy,a.sm,a.sd])}</span><span>پایان: ${fmt(c.end)}</span></div>
+<div class="dates"><span>${ic('cal',15)}شروع: ${fmt([a.sy,a.sm,a.sd])}</span><span>پایان: ${fmt(c.end)}</span></div><div class="due-line">${ic('cal',15)}${c.next?'قسط بعدی: '+fmt(c.next):'تمام اقساط پرداخت شده است'}</div>
 <div class="pb"><i data-w="${c.pct}"></i></div>
 <div class="dates" style="margin:8px 0 0"><span>پرداخت‌شده: ${fd(a.paid)} قسط</span><span>مانده: ${fd(a.count-a.paid)} قسط</span></div>
 <div class="sums"><div class="p">جمع پرداخت‌شده<b>${money(c.pd)}</b></div><div class="u">جمع پرداخت‌نشده<b>${money(c.un)}</b></div></div>
