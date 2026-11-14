@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>اقساط من</title>
+<meta name="theme-color" content="#5b5bf0">
+<meta name="description" content="مدیریت اقساط، پرداخت‌ها و سررسیدهای شما">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="اقساط من">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--tx:#16213a;--mu:#6b7794;--pri:#5b5bf0;--pri2:#8b5cf6;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;--line:#e3e7f2;--sh:0 10px 30px rgba(40,50,110,.09);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1120;--card:#171d31;--tx:#eef1fb;--mu:#98a3c4;--line:#262e49;--sh:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1120;--card:#171d31;--tx:#eef1fb;--mu:#98a3c4;--line:#262e49;--sh:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font-family:'Vazirmatn',Tahoma,sans-serif;font-size:15px;line-height:1.7;transition:background .4s,color .4s}
+.app{max-width:560px;margin:auto;padding:16px 16px 130px}
+button,input,select,textarea{font-family:'Vazirmatn',Tahoma,sans-serif;font-size:inherit;color:inherit}button{cursor:pointer;border:0;background:none}
+.ic{flex:none;display:block}
+header{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 14px}
+header h1{font-size:22px;font-weight:800;display:flex;gap:8px;align-items:center}
+header h1 .ic{color:var(--pri)}
+.iconbtn{width:42px;height:42px;border-radius:14px;background:var(--card);box-shadow:var(--sh);display:grid;place-items:center;transition:transform .25s}
+.iconbtn:active{transform:scale(.88) rotate(-12deg)}
+.view{display:none}.view.on{display:block;animation:fade .45s both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.card{background:var(--card);border-radius:24px;padding:18px;box-shadow:var(--sh);margin-bottom:14px;animation:rise .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*80ms)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.97)}}
+.hero{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;position:relative;overflow:hidden;padding:22px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12);animation:float 7s ease-in-out infinite}
+.hero::before{width:180px;height:180px;top:-60px;left:-40px}.hero::after{width:110px;height:110px;bottom:-30px;right:30px;animation-delay:-3s}
+@keyframes float{50%{transform:translate(14px,18px) scale(1.08)}}
+.hero>*{position:relative;z-index:1}
+.hrow{display:flex;align-items:center;gap:18px}
+.gauge{position:relative;width:132px;height:132px;flex:none}
+.gauge .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-weight:800;font-size:26px;line-height:1.1}
+.gauge .mid small{font-size:11px;font-weight:500;opacity:.85}
+.arc{transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
+.stats{display:grid;gap:8px;flex:1;min-width:0}
+.stat small{display:block;font-size:12px;opacity:.85}.stat b{font-size:17px;font-weight:700}
+.stat b span{font-size:11px;font-weight:400;opacity:.8;margin-inline-start:3px}
+h2{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+h2 .ic{color:var(--pri)}
+.dn{display:flex;align-items:center;gap:18px}
+.donut{animation:spin 1.2s cubic-bezier(.2,.8,.2,1) both;flex:none}
+@keyframes spin{from{transform:rotate(-200deg) scale(.6);opacity:0}}
+.leg{display:grid;gap:10px;font-size:13px;flex:1}.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:8px}
+.leg b{display:block;font-size:15px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:8px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:10px;color:var(--mu);gap:4px}
+.bar i{display:block;width:100%;border-radius:10px 10px 4px 4px;background:linear-gradient(180deg,var(--pri2),var(--pri));transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k)*90ms+300ms)}
+.bar:first-child i{background:linear-gradient(180deg,#fbbf24,var(--warn))}
+@keyframes grow{from{transform:scaleY(0)}}
+.next{display:flex;align-items:center;gap:14px}
+.badge{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--pri) 14%,transparent);color:var(--pri);flex:none;animation:pulse 2.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--pri) 0%,transparent);transform:scale(1.06)}0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--pri) 35%,transparent)}}
+.next small{color:var(--mu);display:block;font-size:12px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tabs button{flex:1;padding:9px;border-radius:14px;background:var(--card);color:var(--mu);font-size:13px;font-weight:500;box-shadow:var(--sh);transition:.25s}
+.tabs button.on{background:var(--pri);color:#fff;transform:translateY(-2px)}
+.item{padding:16px}
+.ih{display:flex;align-items:center;gap:12px}
+.ih .mini{position:relative;width:58px;height:58px;flex:none}
+.ih .mini span{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;font-weight:700}
+.ih .t{flex:1;min-width:0}.ih .t b{font-size:16px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{font-size:11px;padding:2px 10px;border-radius:99px;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c);font-weight:500;display:inline-block}
+.dates{display:flex;justify-content:space-between;gap:8px;color:var(--mu);font-size:12.5px;margin:12px 0 8px}
+.dates span{display:flex;gap:5px;align-items:center}
+.pb{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.pb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pri),var(--pri2));width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.sums{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.sums div{background:var(--bg);border-radius:14px;padding:8px 12px;font-size:12px;color:var(--mu)}
+.sums b{display:block;font-size:14px;color:var(--tx)}
+.sums .p b{color:var(--ok)}.sums .u b{color:var(--warn)}
+.acts{display:flex;gap:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:14px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;font-weight:700;transition:transform .2s;width:100%}
+.btn:active,.sm:active{transform:scale(.93)}
+.acts .btn{flex:1}
+.sm{width:44px;height:42px;border-radius:14px;background:var(--bg);display:grid;place-items:center;color:var(--mu);transition:.2s;flex:none}
+.sm.d:active{color:var(--bad)}
+.empty{text-align:center;color:var(--mu);padding:40px 10px}
+.fab{position:fixed;inset-inline-end:18px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:20px;background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px rgba(91,91,240,.45);z-index:20;transition:transform .3s}
+.fab:active{transform:scale(.88) rotate(90deg)}
+.tb{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;justify-content:center;padding:0 12px calc(10px + env(safe-area-inset-bottom,0px))}
+.tb nav{display:flex;width:100%;max-width:520px;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:24px;padding:6px;box-shadow:var(--sh);border:1px solid var(--line)}
+.tb button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px;border-radius:18px;color:var(--mu);font-size:11px;transition:.3s}
+.tb button.on{color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,transparent)}
+.tb button.on .ic{animation:pop .5s}
+@keyframes pop{40%{transform:translateY(-5px) scale(1.2)}}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}.row small{display:block;color:var(--mu);font-size:12px}
+.seg{display:flex;background:var(--bg);border-radius:14px;padding:3px}
+.seg button{padding:6px 12px;border-radius:11px;font-size:13px;color:var(--mu)}
+.seg button.on{background:var(--pri);color:#fff}
+.md{position:fixed;inset:0;background:rgba(10,14,30,.55);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.md.on{display:flex;animation:fade2 .25s}
+@keyframes fade2{from{opacity:0}}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:28px 28px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto;animation:up .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(100%)}}
+.sheet h3{margin-bottom:12px}
+label{display:block;font-size:12.5px;color:var(--mu);margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);outline:0;transition:border .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--pri)}
+textarea{height:140px;direction:ltr;font-size:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:1fr 1.4fr 1.2fr;gap:8px}
+.sheet .btn{margin-top:16px}
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translate(-50%,-120px);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:99px;z-index:99;transition:transform .5s cubic-bezier(.2,1.2,.3,1);font-size:13px;white-space:nowrap}
+.toast.on{transform:translate(-50%,0)}
+.cf{position:fixed;width:8px;height:8px;border-radius:2px;z-index:99;pointer-events:none;animation:cf .9s ease-out forwards}
+@keyframes cf{to{transform:translate(var(--dx),calc(var(--dy) + 150px)) rotate(540deg);opacity:0}}
+.credit{position:relative;text-align:center;padding:22px 16px;border-radius:24px;margin-top:6px;background:var(--card);box-shadow:var(--sh);overflow:hidden;animation:rise .6s .3s both}
+.credit::before{content:"";position:absolute;inset:0;padding:1.5px;border-radius:24px;background:linear-gradient(120deg,var(--pri),var(--pri2),#ec4899,var(--pri));background-size:300% 100%;animation:shine 5s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+@keyframes shine{to{background-position:-300% 0}}
+.credit .hb{color:#ec4899;display:inline-block;animation:beat 1.6s infinite}
+@keyframes beat{15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.2)}}
+.credit p{font-size:13px;color:var(--mu)}
+.credit b{display:block;font-size:19px;font-weight:800;margin:2px 0 12px;background:linear-gradient(90deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.credit a{display:inline-flex;gap:6px;align-items:center;padding:8px 16px;border-radius:99px;background:color-mix(in srgb,var(--pri) 12%,transparent);color:var(--pri);text-decoration:none;font-size:13px;font-weight:500;direction:ltr}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b5bf0"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs></svg>
+<div class="app">
+<header><h1 id="ttl"></h1><button class="iconbtn" id="thm" aria-label="تغییر تم"></button></header>
+<section class="view on" id="v-home"></section>
+<section class="view" id="v-list"></section>
+<section class="view" id="v-set"></section>
+</div>
+<button class="fab" id="fab" aria-label="قسط جدید"></button>
+<div class="tb"><nav id="nav"></nav></div>
+<div class="md" id="md"><div class="sheet" id="sh"></div></div>
+<div class="toast" id="ts"></div>
+<script>
+const I={home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',set:'<path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',plus:'<path d="M12 5v14M5 12h14"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',check:'<path d="m5 12 5 5L20 7"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4"/>',wallet:'<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h14V9H5a2 2 0 0 1-2-2z"/><circle cx="16" cy="14.5" r="1"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/>',undo:'<path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/>',spark:'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',pie:'<path d="M12 3v9h9a9 9 0 1 1-9-9z"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',phone:'<rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/>',heart:'<path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'};
+const ic=(n,s=20)=>`<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
+const $=s=>document.querySelector(s),MN=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const fd=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]),en=s=>String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[^\d]/g,'');
+const money=n=>Math.round(n).toLocaleString('fa-IR'),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=(()=>{try{const p=new Intl.DateTimeFormat('en-US-u-ca-persian-nu-latn',{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(new Date()),g=t=>+p.find(x=>x.type===t||(t==='year'&&x.type==='relatedYear')).value;const r=[g('year'),g('month'),g('day')];if(r.some(isNaN))throw 0;return r}catch(e){return[1405,8,21]}})();
+const addM=([y,m,d],k)=>{const t=y*12+m-1+k,ny=Math.floor(t/12),nm=t%12+1;return[ny,nm,Math.min(d,nm<=6?31:nm<=11?30:29)]};
+const fmt=a=>fd(a[2])+' '+MN[a[1]-1]+' '+fd(a[0]),key=a=>a[0]*10000+a[1]*100+a[2];
+const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},ld=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const SAMPLE=[{id:1,name:'وام خودرو',amount:12000000,count:36,paid:10,sy:1404,sm:11,sd:5},{id:2,name:'قسط گوشی',amount:3500000,count:12,paid:6,sy:1405,sm:3,sd:15},{id:3,name:'لوازم خانگی',amount:2200000,count:10,paid:10,sy:1404,sm:5,sd:1}];
+let S;try{S=JSON.parse(ld('aghsat.v1')||'null')}catch(e){}if(!Array.isArray(S))S=SAMPLE;
+let F='all',V='home';const save=()=>sv('aghsat.v1',JSON.stringify(S));
+function calc(a){const st=[a.sy,a.sm,a.sd],tot=a.amount*a.count,pd=a.amount*a.paid,next=a.paid<a.count?addM(st,a.paid):null;let s=['تمام‌شده','#10b981'];if(next)s=key(next)<key(today)?['معوق','#ef4444']:(next[0]===today[0]&&next[1]===today[1])?['سررسید این ماه','#f59e0b']:['در جریان','#5b5bf0'];return{tot,pd,un:tot-pd,pct:a.count?a.paid/a.count*100:0,end:addM(st,a.count-1),next,s}}
+function ring(p,sz,sw,tr,st){const r=(sz-sw)/2,c=2*Math.PI*r,h=sz/2;return`<svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}"><circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="${tr}" stroke-width="${sw}"/><circle class="arc" data-o="${c*(1-p/100)}" cx="${h}" cy="${h}" r="${r}" fill="none" stroke="${st}" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" transform="rotate(-90 ${h} ${h})"/></svg>`}
+function donut(pd,un){const r=62,c=2*Math.PI*r,a=c*pd/((pd+un)||1);return`<svg class="donut" width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="${r}" fill="none" stroke="#f59e0b" stroke-width="22"/><circle cx="75" cy="75" r="${r}" fill="none" stroke="#10b981" stroke-width="22" stroke-dasharray="${a} ${c}" transform="rotate(-90 75 75)"/></svg>`}
+function totals(){let t=0,p=0,n=0,pc=0;S.forEach(a=>{t+=a.amount*a.count;p+=a.amount*a.paid;n+=a.count;pc+=a.paid});return{t,p,u:t-p,pct:t?p/t*100:0}}
+function bars(){const m={},t0=today[0]*12+today[1]-1;S.forEach(a=>{for(let i=a.paid;i<a.count;i++){const d=addM([a.sy,a.sm,a.sd],i),k=Math.max(t0,d[0]*12+d[1]-1);m[k]=(m[k]||0)+a.amount}});const arr=[0,1,2,3,4,5].map(i=>[t0+i,m[t0+i]||0]),mx=Math.max(...arr.map(x=>x[1]),1);return arr.map((x,i)=>`<div class="bar" style="--k:${i}"><span>${x[1]?money(x[1]/1e6)+' م':'—'}</span><i style="height:${Math.max(x[1]/mx*100,4)*.72}%"></i><span>${MN[x[0]%12]}</span></div>`).join('')}
+function home(){const T=totals();let nx=null;S.forEach(a=>{const c=calc(a);if(c.next&&(!nx||key(c.next)<key(nx.d)))nx={a,d:c.next}});
+$('#v-home').innerHTML=`<div class="card hero" style="--i:0"><div class="hrow"><div class="gauge">${ring(T.pct,132,13,'rgba(255,255,255,.25)','#fff')}<div class="mid"><span class="cu" data-n="${T.pct}" data-f="p">۰</span><small>پرداخت‌شده</small></div></div><div class="stats"><div class="stat"><small>جمع کل اقساط</small><b><span class="cu" data-n="${T.t}" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div><div class="stat"><small>پرداخت‌شده</small><b><span class="cu" data-n="${T.p}" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div><div class="stat"><small>پرداخت‌نشده</small><b><span class="cu" data-n="${T.u}" style="font-size:inherit;opacity:1;margin:0">۰</span><span>تومان</span></b></div></div></div></div>
+${nx?`<div class="card next" style="--i:1"><div class="badge">${ic('cal',24)}</div><div><small>قسط بعدی</small><b>${esc(nx.a.name)}</b><small>${fmt(nx.d)} · ${money(nx.a.amount)} تومان</small></div></div>`:''}
+<div class="card" style="--i:2"><h2>${ic('pie')}سهم پرداخت‌شده و باقی‌مانده</h2><div class="dn">${donut(T.p,T.u)}<div class="leg"><div><i style="background:#10b981"></i>پرداخت‌شده<b>${money(T.p)}</b></div><div><i style="background:#f59e0b"></i>پرداخت‌نشده<b>${money(T.u)}</b></div></div></div></div>
+<div class="card" style="--i:3"><h2>${ic('chart')}سررسیدهای ۶ ماه آینده</h2><div class="bars">${bars()}</div></div>`}
+function list(){const L=S.filter(a=>F==='all'||(F==='done')===(a.paid>=a.count));
+$('#v-list').innerHTML=`<div class="tabs">${[['all','همه'],['act','در حال پرداخت'],['done','تمام‌شده']].map(x=>`<button data-f="${x[0]}" class="${F===x[0]?'on':''}">${x[1]}</button>`).join('')}</div>`+(L.length?L.map((a,i)=>{const c=calc(a),col=a.paid>=a.count?'#10b981':'url(#gr)';return`<div class="card item" style="--i:${i}"><div class="ih"><div class="mini">${ring(c.pct,58,7,'var(--line)',col)}<span>${fd(Math.round(c.pct))}٪</span></div><div class="t"><b>${esc(a.name)}</b><span class="chip" style="--c:${c.s[1]}">${c.s[0]}</span></div></div>
+<div class="dates"><span>${ic('cal',15)}شروع: ${fmt([a.sy,a.sm,a.sd])}</span><span>پایان: ${fmt(c.end)}</span></div>
+<div class="pb"><i data-w="${c.pct}"></i></div>
+<div class="dates" style="margin:8px 0 0"><span>پرداخت‌شده: ${fd(a.paid)} قسط</span><span>مانده: ${fd(a.count-a.paid)} قسط</span></div>
+<div class="sums"><div class="p">جمع پرداخت‌شده<b>${money(c.pd)}</b></div><div class="u">جمع پرداخت‌نشده<b>${money(c.un)}</b></div></div>
+<div class="acts"><button class="btn" data-a="pay" data-id="${a.id}" ${a.paid>=a.count?'disabled style="opacity:.5"':''}>${ic('check',18)}ثبت پرداخت این ماه</button><button class="sm" data-a="undo" data-id="${a.id}" aria-label="برگرداندن">${ic('undo',18)}</button><button class="sm" data-a="edit" data-id="${a.id}" aria-label="ویرایش">${ic('edit',18)}</button><button class="sm d" data-a="del" data-id="${a.id}" aria-label="حذف">${ic('trash',18)}</button></div></div>`}).join(''):`<div class="empty">${ic('wallet',40)}<p style="margin-top:8px">قسطی اینجا نیست. با دکمه‌ی + اولین قسط را اضافه کن.</p></div>`)}
+function sett(){const th=ld('aghsat.theme')||'auto';$('#v-set').innerHTML=`<div class="card" style="--i:0"><h2>${ic('spark')}تنظیمات</h2><div class="row"><div>پوسته<small>روشن، تیره یا طبق سیستم</small></div><div class="seg">${[['light','روشن'],['dark','تیره'],['auto','خودکار']].map(x=>`<button data-t="${x[0]}" class="${th===x[0]?'on':''}">${x[1]}</button>`).join('')}</div></div>
+<div class="row"><div>پشتیبان‌گیری<small>داده‌ها فقط روی همین دستگاه ذخیره می‌شوند</small></div><button class="sm" data-a="bk" aria-label="پشتیبان">${ic('copy',18)}</button></div>
+<div class="row"><div>بازیابی از پشتیبان<small>متن پشتیبان را جای‌گذاری کن</small></div><button class="sm" data-a="rs" aria-label="بازیابی">${ic('undo',18)}</button></div>
+<div class="row"><div>نصب روی گوشی<small>آیفون و اندروید</small></div><button class="sm" data-a="ins" aria-label="نصب">${ic('phone',18)}</button></div></div><div class="credit"><span class="hb">${ic('heart',22)}</span><p>طراحی و توسعه داده شده با</p><b>سجاد درویشی</b><a href="https://www.sajaddarvishi.ir" target="_blank" rel="noopener">${ic('globe',16)}www.sajaddarvishi.ir</a></div>`}
+function anim(){requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.arc').forEach(a=>a.style.strokeDashoffset=a.dataset.o);document.querySelectorAll('.pb i').forEach(i=>i.style.width=i.dataset.w+'%')}));const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;document.querySelectorAll('.cu').forEach(e=>{const n=+e.dataset.n,p=e.dataset.f==='p',f=v=>p?fd(Math.round(v))+'٪':money(v);if(rm){e.textContent=f(n);return}const t0=performance.now();(function s(t){const k=Math.min((t-t0)/1100,1);e.textContent=f(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(s)})(t0)})}
+function render(){home();list();sett();anim()}
+function show(v){V=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#fab').style.display=v==='set'?'none':'grid';scrollTo(0,0);render()}
+function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2200)}
+function burst(el){const r=el.getBoundingClientRect();for(let i=0;i<16;i++){const s=document.createElement('i');s.className='cf';s.style.cssText=`left:${r.left+r.width/2}px;top:${r.top}px;--dx:${(Math.random()-.5)*220}px;--dy:${-70-Math.random()*120}px;background:hsl(${Math.random()*360} 80% 60%)`;document.body.appendChild(s);setTimeout(()=>s.remove(),950)}}
+const open=h=>{$('#sh').innerHTML=h;$('#md').classList.add('on')},close=()=>$('#md').classList.remove('on');
+function form(id){const a=S.find(x=>x.id===id)||{name:'',amount:'',count:'',paid:0,sy:today[0],sm:today[1],sd:today[2]};
+open(`<h3>${id?'ویرایش قسط':'قسط جدید'}</h3><label>نام قسط</label><input id="f_n" value="${esc(a.name)}" placeholder="مثلاً وام خودرو"><div class="g2"><div><label>مبلغ هر قسط (تومان)</label><input id="f_a" inputmode="numeric" value="${a.amount?fd(a.amount):''}"></div><div><label>تعداد کل اقساط</label><input id="f_c" inputmode="numeric" value="${a.count?fd(a.count):''}"></div></div><label>تاریخ شروع (شمسی)</label><div class="g3"><input id="f_d" inputmode="numeric" value="${fd(a.sd)}" aria-label="روز"><select id="f_m" aria-label="ماه">${MN.map((m,i)=>`<option value="${i+1}" ${i+1===a.sm?'selected':''}>${m}</option>`).join('')}</select><input id="f_y" inputmode="numeric" value="${fd(a.sy)}" aria-label="سال"></div><label>تعداد قسط پرداخت‌شده</label><input id="f_p" inputmode="numeric" value="${fd(a.paid)}"><button class="btn" id="f_s">${ic('check',18)}ذخیره</button>`);
+$('#f_s').onclick=()=>{const o={id:id||Date.now(),name:$('#f_n').value.trim(),amount:+en($('#f_a').value),count:+en($('#f_c').value),paid:+en($('#f_p').value||0),sy:+en($('#f_y').value),sm:+$('#f_m').value,sd:Math.min(Math.max(+en($('#f_d').value),1),31)};if(!o.name||!o.amount||!o.count||!o.sy)return toast('نام، مبلغ، تعداد و سال شروع را کامل وارد کن');o.paid=Math.min(o.paid,o.count);id?S=S.map(x=>x.id===id?o:x):S.push(o);save();close();render();toast('قسط ذخیره شد')}}
+function box(mode){open(`<h3>${mode==='bk'?'پشتیبان داده‌ها':'بازیابی از پشتیبان'}</h3><p style="color:var(--mu);font-size:13px">${mode==='bk'?'این متن را کپی و جایی امن نگه دار.':'متن پشتیبان را اینجا جای‌گذاری کن.'}</p><textarea id="bx">${mode==='bk'?esc(JSON.stringify(S)):''}</textarea><button class="btn" id="bb">${mode==='bk'?'کپی متن':'بازیابی'}</button>`);$('#bb').onclick=()=>{const t=$('#bx');if(mode==='bk'){t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand('copy')}toast('کپی شد')}else{try{const d=JSON.parse(t.value);if(!Array.isArray(d))throw 0;S=d;save();close();render();toast('بازیابی شد')}catch(e){toast('متن پشتیبان معتبر نیست')}}}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a],[data-f],[data-t],[data-v]');if(!b){if(e.target.id==='md')close();return}const d=b.dataset,a=S.find(x=>x.id==+d.id);
+if(d.v)return show(d.v);if(d.f){F=d.f;return list(),anim()}if(d.t){sv('aghsat.theme',d.t);theme();return sett()}
+if(d.a==='pay'&&a&&a.paid<a.count){a.paid++;save();render();burst(b);toast(a.paid>=a.count?'تبریک! این قسط تمام شد 🎉':'پرداخت ثبت شد')}
+if(d.a==='undo'&&a&&a.paid>0){a.paid--;save();render();toast('یک پرداخت برگشت داده شد')}
+if(d.a==='edit')form(a.id);if(d.a==='del'&&a)open(`<h3>حذف «${esc(a.name)}»؟</h3><p style="color:var(--mu)">این کار قابل بازگشت نیست.</p><button class="btn" id="yd" style="background:var(--bad)">${ic('trash',18)}حذف قسط</button>`),$('#yd').onclick=()=>{S=S.filter(x=>x.id!==a.id);save();close();render();toast('قسط حذف شد')};
+if(d.a==='bk'||d.a==='rs')box(d.a);if(d.a==='ins')open(`<h3>نصب روی گوشی</h3><p style="line-height:2"><b>آیفون:</b> در Safari دکمه‌ی اشتراک‌گذاری را بزن، سپس «Add to Home Screen».<br><b>اندروید:</b> لینک را مستقیم در Chrome باز کن (نه داخل اپ‌ها)، منوی ⋮ را بزن و «Add to Home screen» را انتخاب کن؛ اگر گزینه‌ی «Install» دیدی همان را بزن.</p>`)});
+function theme(){const t=ld('aghsat.theme')||'auto',r=document.documentElement;t==='auto'?r.removeAttribute('data-theme'):r.dataset.theme=t;const dk=t==='dark'||(t==='auto'&&matchMedia('(prefers-color-scheme:dark)').matches);$('#thm').innerHTML=ic(dk?'sun':'moon',20)}
+$('#thm').onclick=()=>{const dk=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);sv('aghsat.theme',dk?'light':'dark');theme();sett()};
+$('#ttl').innerHTML=ic('wallet',26)+'اقساط من';$('#fab').innerHTML=ic('plus',26);$('#fab').onclick=()=>form();
+$('#nav').innerHTML=[['home','خانه'],['list','اقساط'],['set','تنظیمات']].map(x=>`<button data-v="${x[0]}" class="${x[0]==='home'?'on':''}">${ic(x[0],22)}${x[1]}</button>`).join('');
+
+theme();render();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err));
+  });
+}
+</script></body></html>
