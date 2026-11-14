@@ -9,8 +9,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f7f9ff",
-  "theme_color": "#dce8ff",
+  "background_color": "#f3f5fb",
+  "theme_color": "#5b5bf0",
   "icons": [
     {
       "src": "./icon-192.png",
