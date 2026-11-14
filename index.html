@@ -108,7 +108,7 @@ h2 .ic{color:var(--pri)}
 .md{position:fixed;inset:0;background:rgba(46,59,91,.28);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
 .md.on{display:flex;animation:fade2 .25s}
 @keyframes fade2{from{opacity:0}}
-.sheet{background:var(--card);width:100%;max-width:560px;border-radius:28px 28px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:calc(var(--vvh,100dvh) - var(--kb,0px) - 12px);overflow:auto;overscroll-behavior:contain;scroll-padding-bottom:24px;animation:up .4s cubic-bezier(.2,.8,.2,1)}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:28px 28px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:calc(var(--vvh,100dvh) - 12px);overflow:auto;overscroll-behavior:contain;scroll-padding-bottom:24px;animation:up .4s cubic-bezier(.2,.8,.2,1)}
 .md.on{bottom:var(--kb,0px)}.sheet input:focus{scroll-margin-bottom:22px}
 @keyframes up{from{transform:translateY(100%)}}
 .sheet h3{margin-bottom:12px}
